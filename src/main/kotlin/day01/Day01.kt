@@ -5,7 +5,6 @@ import readInput
 
 fun main() {
     fun part1(input: List<String>): Int {
-        println(input.filter { it.isNotEmpty() })
         return input.size
     }
 
@@ -14,10 +13,17 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01")
+    val testInput = readInput("day01","day01Input")
     check(part1(testInput) == 2256)
 
-    val input = readInput("Day01")
+    val input = readInput("day01","day01Input")
     part1(input).println()
     part2(input).println()
+
+    val caloriesCounter = CountingCalories(input)
+
+    println(caloriesCounter.getMaxCalories())
+
+    println(caloriesCounter.getMaxCaloriesForElves(1))
+    println(caloriesCounter.getMaxCaloriesForElves(3))
 }
