@@ -5,7 +5,7 @@ import java.security.MessageDigest
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String) = File("src/main/kotlin/day01", "$name.txt")
+fun readInput(packageName: String, name: String) = File("src/main/kotlin/$packageName", "$name.txt")
     .readLines()
 
 /**
