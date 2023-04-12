@@ -20,7 +20,7 @@ fun main() {
     part1(input).println()
     part2(input).println()
 
-    val caloriesCounter = CountingCalories(input)
+    val caloriesCounter = CaloriesCounter(input)
 
     println(caloriesCounter.getMaxCalories())
 

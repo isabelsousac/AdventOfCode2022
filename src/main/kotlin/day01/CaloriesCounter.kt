@@ -2,7 +2,7 @@ package day01
 
 import java.lang.Integer.max
 
-class CountingCalories(val fileInputs: List<String>) {
+class CaloriesCounter(val fileInputs: List<String>) {
 
     fun getMaxCalories(): Int {
         var maxCount = 0
