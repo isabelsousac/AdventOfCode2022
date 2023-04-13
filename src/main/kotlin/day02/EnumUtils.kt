@@ -1,31 +1,18 @@
 package day02
-
-enum class OpponentGameChoices(
-    val associatedChar: Char
-) {
-    ROCK('A'),
-    PAPER('B'),
-    SCISSORS('C');
-
-    companion object {
-        fun getAssociatedChoice(charChoice: Char): OpponentGameChoices? {
-            return values().firstOrNull { it.associatedChar == charChoice }
-        }
-    }
-}
-
-
-enum class PlayerGameChoices(
-    val associatedChar: Char,
+enum class GameChoices(
+    val associatedPlayerChar: Char,
+    val associatedOpponentChar: Char,
     val point: Int
 ) {
-    ROCK('X', 1),
-    PAPER('Y', 2),
-    SCISSORS('Z', 3);
+    ROCK('X', 'A', 1),
+    PAPER('Y', 'B',2),
+    SCISSORS('Z', 'C',3);
 
     companion object {
-        fun getAssociatedChoice(charChoice: Char): PlayerGameChoices? {
-            return PlayerGameChoices.values().firstOrNull { it.associatedChar == charChoice }
+        fun getAssociatedChoice(charChoice: Char): GameChoices? {
+            return GameChoices.values().firstOrNull {
+                it.associatedPlayerChar == charChoice || it.associatedOpponentChar == charChoice
+            }
         }
     }
 }
