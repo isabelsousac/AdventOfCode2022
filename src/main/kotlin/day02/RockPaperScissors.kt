@@ -1,26 +1,17 @@
 package day02
 
+import java.lang.IllegalArgumentException
+
 data class Punctuation(
     val pointsPerChoice: Int,
     val pointsPerOutcome: Int,
     val totalPoints: Int = pointsPerChoice + pointsPerOutcome
 )
 class RockPaperScissors(val fileInputs: List<String>) {
-    fun getPlayPunctuations(): Array<Punctuation?>? {
-        val allPlaysPunctuation = Array<Punctuation?>(fileInputs.size) { null }
 
-        for (i in fileInputs.indices) {
-            val (opponentChoice, playerChoice) = fileInputs[i].split(" ")
-
-            val punctuation = getPunctuationObject(opponentChoice.first(), playerChoice.first()) ?: return null
-            allPlaysPunctuation[i] = punctuation
-        }
-        return allPlaysPunctuation
-    }
-
-    private fun getPunctuationObject(opponentChar: Char, playerChar: Char): Punctuation? {
-        val oppChoice = OpponentGameChoices.getAssociatedChoice(opponentChar) ?: return null
-        val playerChoice = PlayerGameChoices.getAssociatedChoice(playerChar) ?: return null
+    private fun getPunctuationObject(opponentChar: Char, playerChar: Char): Punctuation {
+        val oppChoice = OpponentGameChoices.getAssociatedChoice(opponentChar) ?: throw IllegalArgumentException("$opponentChar is not a valid option")
+        val playerChoice = PlayerGameChoices.getAssociatedChoice(playerChar) ?: throw IllegalArgumentException("$playerChar is not a valid option")
 
         val outcomePoint = when {
             oppChoice.name == playerChoice.name -> GameOutcomesPunctuation.DRAW.points
@@ -36,8 +27,10 @@ class RockPaperScissors(val fileInputs: List<String>) {
         return Punctuation(pointsPerChoice = playerChoice.point, pointsPerOutcome = outcomePoint)
     }
 
-    fun getFinalPunctuation(): Int? {
-        val playPunctuations = getPlayPunctuations() ?: return null
-        return playPunctuations.sumOf { it!!.totalPoints }
-    }
+    fun getFinalPunctuation(): Int =
+        fileInputs.map {
+            val (opponentChoice, playerChoice) = it.split(" ")
+            getPunctuationObject(opponentChoice.first(), playerChoice.first())
+        }.sumOf { it.totalPoints }
+    
 }
