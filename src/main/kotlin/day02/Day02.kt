@@ -22,4 +22,5 @@ fun main() {
 
     val rockPaperScissors = RockPaperScissors(input)
     println(rockPaperScissors.getFinalPunctuation())
+    println(rockPaperScissors.getStrategyGuidePunctuation())
 }
